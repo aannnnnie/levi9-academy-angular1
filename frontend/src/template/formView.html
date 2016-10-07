@@ -1,0 +1,50 @@
+<form class="modal-content" name="addListForm" ng-submit="vm.addItem()" novalidate>
+    <div class="modal-header">
+        <h4 class="modal-title" id="add-list-modal-label"></h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+			<div class="col-sm-6 form-group">
+				<label for="name">Name:</label>
+				<input type="text" class="form-control" name="name" id="name" ng-model="vm.data.name"
+				       ng-minlength="3" ng-maxlength="15" required>
+			</div>
+			<div class="col-sm-6 form-group">
+				<label for="age">Age:</label>
+				<input type="number" class="form-control" name="age" id="age" ng-model="vm.data.age"
+				       min="18" max="100" ng-pattern="/^[0-9]+$/" required>
+			</div>
+			<div class="col-sm-6 form-group">
+				<label for="gender">Gender:</label>
+				<select class="form-control" name="gender" id="gender" ng-model="vm.data.gender"
+				        required>
+					<option value="male">male</option>
+					<option value="female">female</option>
+				</select>
+			</div>
+			<div class="col-sm-6 form-group">
+				<label for="phoneNumber">Phone Number:</label>
+				<input type="text" class="form-control" name="phoneNumber" id="phoneNumber"
+				       ui-mask="+380(99)999-99-99"
+				       ng-model="vm.data.phoneNumber" required>
+			</div>
+			<div class="col-sm-6 form-group">
+				<label for="email">Email:</label>
+				<input type="email" class="form-control" name="email" id="email"
+				       ng-model="vm.data.email"
+				       ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"
+				       required>
+			</div>
+			<div class="col-sm-6 form-group">
+				<label for="login">Login:</label>
+				<input type="text" class="form-control" name="login" id="login"
+				       ng-model="vm.data.login"
+				       ng-minlength="5" ng-maxlength="15" required>
+			</div>
+		</div>        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add Account</button>
+    </div>
+</form>

@@ -1,0 +1,13 @@
+<div class="container">
+	<div class="row">
+		<h1>{{title}}</h1>
+		<ul ng-repeat="user in users">
+			<img class='img-circle' ng-src='{{user.avatarUrl}}'/>
+			<p>{{user.login}}</p>
+			<button type="button" class="btn btn-info navbar-btn" ui-sref="account({id: user.id})">ShowDetails</button>	
+		</ul>
+		<button type="button" class="btn btn-default" ui-sref='accounts.add'>Add</button>	
+
+	</div>
+</div>
+<div ui-view></div>

@@ -1,0 +1,135 @@
+@media screen and (max-width: 480px) {
+	img {
+		width: 100px;
+	}
+	.user{
+		width: 200px;
+	}
+}
+
+@media screen and (min-width: 481px) {
+	img {
+		width: 150px;
+	}
+	.user{
+		width: 400px;
+	}
+	img:hover{
+		width: 200px;
+	}
+}
+
+@media screen and (min-width: 960px) {
+	img {
+		width: 200px;
+	}
+	.user{
+		width: 600px;
+	}
+	img:hover{
+		width: 250px;
+	}
+}
+
+@media screen and (min-width: 1201px) {
+	img {
+		width: 250px;
+	}
+	.user{
+		width: 700px;
+	}
+	img:hover{
+		width: 300px;
+	}
+}
+
+img {
+	cursor: pointer;
+	padding: 5px;
+    transition: width 2s, background-color 2s;
+    opacity: .8;
+}
+
+img:hover{
+	background-color: #FFCCCC;
+	opacity: 1;
+}
+
+body {
+	background-color: #F0FAF9;
+}
+
+.user {
+	padding: 15px;
+	border-top: 1px solid black;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#user-table {
+	padding: 10px;
+	margin: 10px;
+}
+
+.font-login {
+	font-weight: bold;
+	font-size: 1.2em;
+	font-variant: small-caps;
+}
+
+.element::after{
+	content: ', ';
+}
+
+.element:last-child:after { 
+	content: '';
+}
+
+
+.ng-modal-overlay {
+    /* полупорозрачный DIV, который охватывает весь экран */
+    position:absolute;
+    z-index:9999;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+    opacity: 0.8;
+}
+.ng-modal-dialog {
+    /* Отцентрированный даилог с тенью */
+    z-index:10000;
+    position: absolute;
+    width: 50%;
+
+    /* Центрирование */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+
+    background-color: #fff;
+    box-shadow: 4px 4px 80px #000;
+}
+.ng-modal-dialog-content {
+    padding:10px;
+    text-align: left;
+}
+.ng-modal-close {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 120%;
+    display: inline-block;
+    font-weight: bold;
+    font-family: 'arial', 'sans-serif';
+}
+
+.ng-submitted .ng-invalid {
+  border-color: red;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
