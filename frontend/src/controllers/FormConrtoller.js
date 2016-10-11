@@ -4,26 +4,27 @@
         '$stateParams', '$state', '$uibModal', '$scope',
         function($stateParams, $state, $uibModal, $scope, accounts){
           var vm = this;
-          
-          var modalInstance = $uibModal.open({
+          vm.type = $stateParams.type;
+          //console.log(vm.type)
+          var modalOptions = $uibModal.open({
               templateUrl: 'template/formView.html',
-              controller: 'ModalInstanceCtrl',
+              controller: 'ModalCtrl',
               controllerAs: 'vm',
               size: 'md',
           });
 
-          modalInstance.result.then(function () {
+          modalOptions.result.then(function () {
               $state.go('accounts');
           }, function () {
               $state.go('accounts');
           });
           
           $scope.$on('$stateChangeStart', function() {
-              modalInstance.dismiss();
+              modalOptions.dismiss();
           });
         }]);
         
-        angular.module('gitHubApp').controller('ModalInstanceCtrl', function($uibModalInstance, accounts, $scope, $state){
+        angular.module('gitHubApp').controller('ModalCtrl', function($uibModalInstance, accounts, $scope, $state){
             var vm = this;
             
             vm.addItem = addItem;
@@ -35,6 +36,11 @@
                   $uibModalInstance.close('ok');
                   
               };
+            }
+
+            function delItem() {
+              console.log('del')
+               accountsAction = accounts.delAccount(vm.id).then(()=>$state.reload());
             }
     
             function cancel() {

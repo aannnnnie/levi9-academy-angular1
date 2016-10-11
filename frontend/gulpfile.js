@@ -17,7 +17,11 @@ var src = {
             './public/bower_components/angular-route/angular-route.js',
             './public/bower_components/angular-ui-router/release/angular-ui-router.min.js',
             './public/bower_components/angular-ui-mask/dist/mask.js',
-            './public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js'
+            './public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+            './public/bower_components/angular-aria/angular-aria.js',
+            './public/bower_components/angular-animate/angular-animate.js',
+            './public/bower_components/angular-material/angular-material.js'
+
         ],
         custom: [
             './src/main.js',
@@ -27,7 +31,9 @@ var src = {
         ]
     },
     css: {
-        libs: ['./public/bower_components/bootstrap-css/css/bootstrap.css'],
+        libs: [
+            './public/bower_components/bootstrap-css/css/bootstrap.css',
+            './public/bower_components/angular-material/angular-material.css'],
         custom: ['./src/styles/style.css']
     },
     html: {

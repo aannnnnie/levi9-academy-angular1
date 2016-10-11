@@ -2,7 +2,7 @@
     <img width="100" ng-src="{{user.avatarUrl}}" alt="avatar">
     <p >{{user.login}}</p> ({{user.email}})
 </p>
-<button class="btn btn-default" ng-click='' ui-sref="accounts">Back</button>
-<button class="btn btn-default" ng-click='' ui-sref="accounts.add">Modify</button><br/>
-<button class="btn btn-default" ng-click='' ui-sref="accounts">Delete</button><br/>
+<md-button class="btn btn-default" ng-click='' ui-sref="accounts">Back</md-button><br/>
+<md-button class="btn btn-default" ng-click='modifyAccount()' ui-sref="accounts.add">Modify</md-button><br/>
+<md-button class="btn btn-default" ng-click="deleteAccount($event)">Delete</md-button><br/>
 
