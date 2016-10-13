@@ -4,7 +4,9 @@
 		<ul ng-repeat="user in users">
 			<img class='img-circle' ng-src='{{user.avatarUrl}}'/>
 			<p>{{user.login}}</p>
-			<button type="button" class="btn btn-info navbar-btn" ui-sref="account({id: user.id})">ShowDetails</button>	
+			<md-button type="button" class="btn btn-info navbar-btn" ui-sref="account({id: user.id})">ShowDetails</md-button>
+			<md-button type="button" class="btn btn-default" ui-sref='accounts.edit({id: user.id})' ng-click='modifyAccount(user.id)'>Modify</md-button>
+			<md-button type="button" class="btn btn-info navbar-btn" ui-sref='accounts.delete' ng-click="deleteAccount($event)">Delete</md-button>
 		</ul>
 		<button type="button" class="btn btn-default" ui-sref='accounts.add'>Add</button>	
 
