@@ -2,12 +2,20 @@
 
 var path = require('path'),
     gulp = require('gulp'),
+    ngAnnotate = require('gulp-ng-annotate'),
     sourcemaps = require('gulp-sourcemaps'),
     bower = require('gulp-bower'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     inject = require('gulp-inject'),
     del = require('del'),
+    babel = require('gulp-babel'),
+    jshint = require('gulp-jshint'),
+    stylish = require('jshint-stylish'),
+    browserSync = require('browser-sync'),
+    cleanCSS = require('gulp-clean-css'),
+    templateCache = require('gulp-angular-templatecache'),
+    addStream = require('add-stream'),
     connect = require('gulp-connect');
 
 var src = {
@@ -27,7 +35,8 @@ var src = {
             './src/main.js',
             './src/app.constants.js',
             './src/services/*.js',
-            './src/controllers/*.js'
+            './src/controllers/*.js',
+            './public/template/templates.js'
         ]
     },
     css: {
@@ -43,34 +52,52 @@ var src = {
 },
     dest = './public';
 
+gulp.task('cache', function(){
+   return gulp.src(src.html.partials)
+    .pipe(templateCache('templates.js', {
+      standalone: true,
+      module: 'templatescache'
+    }))
+    .pipe(gulp.dest(path.join(dest, '/template')))
+});
 
 gulp.task('clean', () => del(dest));
  
-gulp.task('connect', () => 
-    connect.server({
-    root: './public',
-    livereload: true
-  }));    
+gulp.task('jshint', function(){
+    return gulp.src(src.js.custom)
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('fail'));
+})
 
 gulp.task('bower-install', () => 
      bower('./public/bower_components')
     .pipe(gulp.dest('./public/bower_components')));
 
-gulp.task('copy-html', () => gulp.src(src.html.main).pipe(gulp.dest(dest)));
+gulp.task('copy-html', () => 
+    gulp.src(src.html.main).pipe(gulp.dest(dest)));
 
-gulp.task('copy-templates', () => gulp.src(src.html.partials).pipe(gulp.dest(path.join(dest, '/template'))));
 
-gulp.task('compile-css', () => gulp.src(src.css.custom).pipe(gulp.dest(path.join(dest, '/css'))));
+gulp.task('compile-css', () => 
+    gulp.src(src.css.custom)
+        .pipe(sourcemaps.init())
+        .pipe(cleanCSS())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(path.join(dest, '/css'))));
 
 gulp.task('compile-js', () =>
-    gulp.src(src.js.custom)
-        .pipe(sourcemaps.init())
-        .pipe(concat('all.js'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(dest)));
+    //pump([
+        gulp.src(src.js.custom)
+            .pipe(sourcemaps.init())
+            .pipe(babel( {presets: ['es2015']} ))
+            .pipe(ngAnnotate())
+            .pipe(uglify())
+            .pipe(concat('all.js'))
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest(dest)));
 
 gulp.task('build', gulp.series(
-    'clean', gulp.parallel('bower-install', 'copy-templates', 'compile-js', 'compile-css'), () => {
+    'clean', 'cache', gulp.parallel('bower-install', 'copy-html', 'compile-js', 'compile-css'), () => {
     var sourceFiles = gulp.src(src.js.libs
                                      .concat([path.join(dest, 'all.js')])
                                      .concat(src.css.libs)
@@ -81,4 +108,18 @@ gulp.task('build', gulp.series(
                .pipe(gulp.dest(dest))
 }));
 
-gulp.task('default', gulp.series('build', 'connect'));
+
+gulp.task('watch', function() {
+    gulp.watch(src.css.custom, gulp.series('compile-css'));
+    gulp.watch(src.js.custom, gulp.series('compile-js'));
+});
+
+gulp.task('serve', function() {
+  browserSync.init({
+    server: 'public'
+  });
+
+  browserSync.watch(dest).on('change', browserSync.reload);
+});
+
+gulp.task('default', gulp.series('build', 'jshint', gulp.parallel('watch', 'serve')));

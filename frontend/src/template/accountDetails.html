@@ -3,6 +3,6 @@
     <p >{{user.login}}</p> ({{user.email}})
 </p>
 <md-button class="btn btn-default" ng-click='' ui-sref="accounts">Back</md-button><br/>
-<md-button class="btn btn-default" ui-sref='accounts.edit({id: user.id})'>Modify</md-button><br/>
-<md-button class="btn btn-default" ui-sref='accounts.delete' ng-click="deleteAccount($event)">Delete</md-button><br/>
+<md-button class="btn btn-default" ui-sref='account.edit({id: user.id})'>Modify</md-button><br/>
+<md-button class="btn btn-default" ui-sref='account.delete({id: user.id})' ng-click="deleteAccount($event)">Delete</md-button><br/>
 

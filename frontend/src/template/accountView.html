@@ -6,9 +6,9 @@
 			<p>{{user.login}}</p>
 			<md-button type="button" class="btn btn-info navbar-btn" ui-sref="account({id: user.id})">ShowDetails</md-button>
 			<md-button type="button" class="btn btn-default" ui-sref='accounts.edit({id: user.id})' ng-click='modifyAccount(user.id)'>Modify</md-button>
-			<md-button type="button" class="btn btn-info navbar-btn" ui-sref='accounts.delete' ng-click="deleteAccount($event)">Delete</md-button>
+			<md-button class="btn btn-info navbar-btn" ui-sref='accounts.delete({id: user.id})'>Delete</md-button>
 		</ul>
-		<button type="button" class="btn btn-default" ui-sref='accounts.add'>Add</button>	
+		<button type="button" class="btn btn-default" ui-sref='add'>Add</button>	
 
 	</div>
 </div>

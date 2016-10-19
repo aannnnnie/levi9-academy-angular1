@@ -1,9 +1,12 @@
-(function () {
+/*jshint esversion: 6 */
+
+(() => {
 	
 	"use strict";
 	
 	angular.module('gitHubApp').factory('modal', modalService);
 	
+	/* @ngInject */
 	function modalService($uibModal) {
 		let modalInstante;
 		
@@ -18,7 +21,7 @@
 				
 				return modalInstante;
 			}
-		}
+		};
 	}
 	
 })();
